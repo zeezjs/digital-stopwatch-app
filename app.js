@@ -1,20 +1,21 @@
-// import {format, formatDistance } from 'https://cdn.jsdelivr.net/npm/Date-fns@3.6.0/+esm';
-
 const clock = document.querySelector('.clock');
-const start = document.querySelector('.start-bttn');
-const stop = document.querySelector('.stop-bttn');
-const pause = document.querySelector('.pause-bttn');
+const startBtn = document.querySelector('.start-bttn');
+const pauseBtn = document.querySelector('.pause-bttn');
+const stopBtn = document.querySelector('.stop-bttn');
 
-const elapsedtime = ()=>{
-    const startTime = Date.now();
-    setInterval(()=>{
-        const currentTime = Date.now();
-        let elapsed = currentTime - startTime;
+//states
+let elapsedtime = 0;
+let startTime = 0;
+let isRunning = false;
+let intervalid = null;
 
-        const hour = Math.floor(elapsed / (1000 * 60 * 60));
-        const min = Math.floor((elapsed / (1000 * 60)) % 60);
-        const sec = Math.floor((elapsed / 1000) % 60);
-        const MillSec = elapsed % 100;
+//functions
+
+const update = ()=>{
+        const hour = Math.floor(elapsedtime / (1000 * 60 * 60));
+        const min = Math.floor((elapsedtime / (1000 * 60)) % 60);
+        const sec = Math.floor((elapsedtime / 1000) % 60);
+        const MillSec = elapsedtime % 1000;
 
         const format = (num, size) => String(num).padStart(size, '0');
         const html = `
@@ -23,9 +24,17 @@ const elapsedtime = ()=>{
         <span>${format(sec, 2)}</span>
         <span>${format(MillSec, 2)}</span>
         `
-        
         clock.innerHTML = html
-    }, 50);
+    }//update display function
+
+//start
+const start = ()=>{
+    startTime = Date.now()
+    intervalid = setInterval(()=>{
+        elapsedtime = Date.now() - startTime
+        update();
+    }, 50)
 }
 
-start.addEventListener('click', elapsedtime);
+startBtn.addEventListener('click', start);
+
