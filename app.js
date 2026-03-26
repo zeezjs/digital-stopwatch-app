@@ -33,9 +33,9 @@ const updateClock = ()=>{
 //start
 const start = ()=>{
     if(isRunning)        
-    return;
+    return;//if the condition executes to true the retutn keyword runs and prevents the buttom code from running
         isRunning = true;
-        startTime = Date.now();
+        startTime = Date.now() - elapsedTime;
         interValid = setInterval(()=>{
             elapsedTime = Date.now() - startTime;
            updateClock();
@@ -44,10 +44,8 @@ const start = ()=>{
 
 //pause function
 const pause = ()=>{
-    if(isRunning){
         clearInterval(interValid);
         isRunning = false;
-    }
 }
 
 //stop function
@@ -56,7 +54,7 @@ const stop = ()=>{
     isRunning = false;
     startTime = 0;
     elapsedTime = 0;
-    updateClock()
+    updateClock();
 };
 
 //Events
