@@ -37,8 +37,17 @@ body{
     padding: 10px;
     font-size: 32px;
 }
+.buttons{
+    display: flex;
+    gap: 18px;
+}
 .bttn{
     padding: 8px;
     font-size: 16px;
     cursor: pointer;
+    width: 60px;
+}
+.Lap-bttn{
+    background-color: red;
+    color: wheat;
 }
